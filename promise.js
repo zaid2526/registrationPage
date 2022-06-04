@@ -47,7 +47,9 @@ function createPost(post) {
 
 
 };
-
+createPost({ title: 'post three', body: 'this is body three' })
+    .then(getPost)
+    .catch(err => console.log(err));
 
 
 function create4thPost(post) {
@@ -64,14 +66,30 @@ function create4thPost(post) {
 
 
     })
-
-}
-createPost({ title: 'post three', body: 'this is body three' })
-    .then(getPost)
-    .catch(err => console.log(err));
+};
 create4thPost({ title: 'post four', body: 'this is body three' })
     .then(getPost)
-    .catch(err => console.log(err))
+    .catch(err => console.log(err));
+
+// delete one after one second...
+function deletePost(){
+    return new Promise((resolve,reject)=>{
+        setTimeout(() => {
+            posts.pop();
+            let error = false;
+            if (!error) {
+                resolve();
+            } else {
+                reject("Somethingf went wrong");
+            }
+        }, 1000)
+    })
+};
+deletePost().then(getPost).catch(err=>console.log(err));
+
+
+
+
 
 
 
