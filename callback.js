@@ -49,6 +49,7 @@ createPost({title:'post three',body:'this is body three'},getPost);
 create4thPost({title:'post four',body:'this is body three'},getPost);
 
 
+/*
 var timer;
 var count=0;
 function lastEditedInSecondsAgo (){
@@ -60,3 +61,4 @@ function lastEditedInSecondsAgo (){
     },1000)
 }
 //lastEditedInSecondsAgo();
+*/
