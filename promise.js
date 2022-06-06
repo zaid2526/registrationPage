@@ -64,3 +64,19 @@ createPost({title:"post four",body:"this is body four"})
             }, 2000);
     })
     .catch(err=>console.log(err))
+
+
+//promse.all.......
+// 1 task, code like youtuber...
+const promise1=Promise.resolve("hello World");
+const promise2=10;
+const promise3=new Promise((resolve,reject)=>{
+    setTimeout(resolve,2000,"good bye");
+})
+const promise4=fetch("https://jsonplaceholder.typicode.com/users")
+    .then(res=>res.json());
+
+
+Promise.all([promise1,promise2, promise3,promise4]).then((val)=>{
+    console.log(val);
+})
