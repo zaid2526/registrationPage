@@ -130,3 +130,42 @@ Promise.all([
     })
     .catch(err=>console.log(err))
 
+//4 callback vs promise
+
+//  when using the callback approach, we’d normally just pass a callback into a 
+//  function that would then get called upon completion in order to get the result 
+//  of something. In promises, however, you attach callbacks on the returned promise 
+//  object.
+// 	why? promises?
+// 		One common issue for using the callback approach is that when we end up 
+//         having to perform multiple asynchronous operations at a time, we can 
+//         easily end up with something that is known as callback hell, 
+//callback hell....
+const demoCallback=()=>{
+    funciton1(function(){
+        function2(function(...args){
+            function3(function(...arge){
+                function4(function(){
+                    //welcopmne to hell
+                })
+            })
+        })
+
+    })
+}
+
+//promise solve the callback hell problem
+// code will be very neet and clean compare to callback.....
+const demoPromise=()=>{
+    return funciton1()
+        .then(()=>{
+            //fucniotn2
+        })
+        .then(()=>{
+            //fucniotn3
+        })
+        .then(()=>{
+            //fucniotn4
+        })
+        .catch(err=>console.log(err))
+}
