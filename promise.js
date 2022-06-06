@@ -23,29 +23,32 @@ function createPost(post){
             }else{
                 reject("post not created")
             }
-        },2000)
+        },1000)
     })
 }
-//getPost();
+getPost();
 //createPost({title:"post three",body:"this is body three"},getPost)
+
 createPost({title:"post three",body:"this is body three"})
     .then(()=>{
         getPost();
     })
     .catch(err=>console.log(err))
 
+//creat deletePost function which uses promises
+// that delete last element of array in 1 senod  
 function deletePost(){
     return new Promise((resolve,reject)=>{
         setTimeout(()=>{
-            //posts.pop();
+            posts.pop();
             let error=false;
-            if(!error){
-                resolve(posts.pop());
+            if(!error && posts.length!=0){
+                resolve();
             }else{
-                reject("not deleted")
+                reject("array is empty")
             }
             
-        },2000);
+        },1000);
     })
     
 
@@ -53,9 +56,11 @@ function deletePost(){
 
 createPost({title:"post four",body:"this is body four"})
     .then(()=>{
+        let timer=0;
         getPost();
-        deletePost().then(getPost).catch(err=>console.log(err))
-
+            clearInterval(timer);
+            timer = setInterval(() => {
+                deletePost().then(getPost).catch(err => console.log("error : ", err));
+            }, 2000);
     })
     .catch(err=>console.log(err))
-    
