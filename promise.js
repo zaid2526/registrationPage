@@ -33,3 +33,29 @@ createPost({title:"post three",body:"this is body three"})
         getPost();
     })
     .catch(err=>console.log(err))
+
+function deletePost(){
+    return new Promise((resolve,reject)=>{
+        setTimeout(()=>{
+            //posts.pop();
+            let error=false;
+            if(!error){
+                resolve(posts.pop());
+            }else{
+                reject("not deleted")
+            }
+            
+        },2000);
+    })
+    
+
+}
+
+createPost({title:"post four",body:"this is body four"})
+    .then(()=>{
+        getPost();
+        deletePost().then(getPost).catch(err=>console.log(err))
+
+    })
+    .catch(err=>console.log(err))
+    
