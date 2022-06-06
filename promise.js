@@ -1,13 +1,13 @@
 let posts = [
-    { title: "post one", body: "this is body one" },
-    { title: "post two", body: "this is body two" }
+    { title: "post one", body: "this is body one",lastUserActivityTime :"13th of may" },
+    { title: "post two", body: "this is body two",lastUserActivityTime : "29th of april"}
 ]
 
 function getPost(){
     setTimeout(()=>{
         let output='';
         posts.forEach((post)=>{
-            output+=`<li> ${post.title} </li>`;
+            output+=`<li> ${post.title} last acivity ${post.lastUserActivityTime}</li>`;
             document.body.innerHTML=output
         });
     },1000);
@@ -26,10 +26,11 @@ function createPost(post){
         },1000)
     })
 }
+
 getPost();
 //createPost({title:"post three",body:"this is body three"},getPost)
 
-createPost({title:"post three",body:"this is body three"})
+createPost({title:"post three",body:"this is body three",lastUserActivityTime : "27th of august"})
     .then(()=>{
         getPost();
     })
@@ -47,23 +48,22 @@ function deletePost(){
             }else{
                 reject("array is empty")
             }
-            
+
         },1000);
     })
-    
 
 }
 
-createPost({title:"post four",body:"this is body four"})
-    .then(()=>{
-        let timer=0;
-        getPost();
-            clearInterval(timer);
-            timer = setInterval(() => {
-                deletePost().then(getPost).catch(err => console.log("error : ", err));
-            }, 2000);
-    })
-    .catch(err=>console.log(err))
+// createPost({title:"post four",body:"this is body four",lastUserActivityTime : "7th of november"})
+//     .then(()=>{
+//         let timer=0;
+//         getPost();
+//             clearInterval(timer);
+//             timer = setInterval(() => {
+//                 deletePost().then(getPost).catch(err => console.log("error : ", err));
+//             }, 2000);
+//     })
+//     .catch(err=>console.log(err))
 
 
 //promse.all.......
@@ -77,6 +77,34 @@ const promise4=fetch("https://jsonplaceholder.typicode.com/users")
     .then(res=>res.json());
 
 
-Promise.all([promise1,promise2, promise3,promise4]).then((val)=>{
-    console.log(val);
+Promise.all([promise1,promise2, promise3,promise4]).then((val1)=>{
+    console.log(val1);
+   
 })
+
+function updateLastUserActivityTime(){
+    return new Promise((resolve,reject)=>{
+        setTimeout(()=>{
+            // by loop changing of all posts last activity
+            //posts.forEach((post)=>{ 
+                //posts.lastUserActivityTime
+                posts[posts.length-1].lastUserActivityTime=new Date().getTime();
+                resolve(posts[posts.length-1].lastUserActivityTime);
+           // })
+        },1000)
+        
+    })
+
+}
+
+Promise.all([
+    createPost({title:"post four",body:"this is body four",
+    lastUserActivityTime : "7th of november"}),updateLastUserActivityTime])
+    .then(([createPostResolve,updateLastUserActivityTimeResolve])=>{
+        console.log("val1",createPostResolve);
+        updateLastUserActivityTimeResolve().then(getPost).catch(err=>console.log("err2",err))
+    })
+    .catch(err=>console.log(err))
+
+
+    
