@@ -91,7 +91,7 @@ function updateLastUserActivityTime(){
                 posts[posts.length-1].lastUserActivityTime=new Date().getTime();
                 resolve(posts[posts.length-1].lastUserActivityTime);
            // })
-        },1000)
+        },2000)
         
     })
 
@@ -99,12 +99,34 @@ function updateLastUserActivityTime(){
 
 Promise.all([
     createPost({title:"post four",body:"this is body four",
-    lastUserActivityTime : "7th of november"}),updateLastUserActivityTime])
-    .then(([createPostResolve,updateLastUserActivityTimeResolve])=>{
-        console.log("val1",createPostResolve);
-        updateLastUserActivityTimeResolve().then(getPost).catch(err=>console.log("err2",err))
+    lastUserActivityTime : "7th of november"}),updateLastUserActivityTime,deletePost])
+    .then(([createPostResolve,updateLastUserActivityTimeResolve,deletePostResolve])=>{
+        console.log("val1",new Date());
+        updateLastUserActivityTimeResolve().then(()=>{
+            console.log("update",new Date());
+            getPost();
+            //delete resolve after only when update resolve did'not depens on the 
+            //set timeOut....
+            deletePostResolve().then(()=>{
+                console.log("inside",new Date());
+                getPost();
+            }).catch(err=>console.log(err))
+        }).catch(err=>console.log("err2",err));
+        //at this level maybe resolve at same time 
+        // deletePostResolve().then(()=>{
+        //     console.log("inside",new Date());
+        //     getPost();
+        // }).catch(err=>console.log(err))
+    })
+    .catch(err=>console.log(err))
+    .then(()=>{
+        console.log("outside",new Date());
+        // deletePost().then(()=>{
+        //     console.log("delete after above promises complete");
+        //     console.log(posts);
+        //     //getPost();
+        // })
+        // .catch(err=>console.log(err));
     })
     .catch(err=>console.log(err))
 
-
-    
