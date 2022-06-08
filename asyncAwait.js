@@ -94,7 +94,10 @@ const preMovie = async ()=>{
     console.log(`husband : i got some ${butter} on ${popcorn}`);
     console.log(`husband : now, we should go in, we are getting late.`);
     console.log(`wife : I alse want a cold drink.`);
-
+    let coldDrink=await getColdDrinks;
+    console.log(`husband : i got the ${coldDrink}`)
+    console.log(("husband : anything else, Darlng."));
+    console.log("no, we must go in, we are getting late.");
     return ticket;
 }
 preMovie().then((t)=>console.log(`"persone 3 : shows ${t}"`))
