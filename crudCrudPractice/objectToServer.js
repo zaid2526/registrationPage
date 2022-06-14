@@ -14,6 +14,7 @@ function runEvent(e){
     // localStorage.setItem(`${email}`,JSON.stringify(userDetails));
     axios.post('https://crudcrud.com/api/d952f862439846c3b9eb05426af3b4c2/appointmentData',userDetails)
         .then(response=>{
+            showOnScreen(userDetails);
             console.log(response)
         })
         .catch(err=>console.log(err))
@@ -24,16 +25,15 @@ function runEvent(e){
     document.getElementById('phone').value='';
 }
 
-window.addEventListener('DOMContentLoaded',()=>{
 
+//........... Refresh page ..........
+window.addEventListener('DOMContentLoaded',()=>{
     axios.get('https://crudcrud.com/api/d952f862439846c3b9eb05426af3b4c2/appointmentData')
         .then(response => {
             console.log(response.data)
             for (i = 0; i < response.data.length; i++) {
                 console.log("responses",response.data.length)
                 showOnScreen(response.data[i]);
-
-
             }
         })
         .catch(err=>{
@@ -43,12 +43,11 @@ window.addEventListener('DOMContentLoaded',()=>{
 });
 
 function showOnScreen(user){
-   
     var userList=document.getElementById('users');
-   
+
     let li=document.createElement('li');
     li.className='list-group-item';
-    li.id=`${user.email}`
+    li.id=`${user._id}`
 
     li.appendChild(document.createTextNode(`${user.name} ${user.email} ${user.phone}`));
     let dltBtn=document.createElement('button');
@@ -62,6 +61,30 @@ function showOnScreen(user){
     li.appendChild(editBtn);
 
     userList.appendChild(li);
-    
-
 }
+
+//------- delete Request------ 
+
+var userList=document.getElementById('users');
+console.log(userList)
+userList.addEventListener('click',(event)=>{
+    if(event.target.tagName==='BUTTON'){
+        let button=event.target;
+        let li=button.parentNode;
+        let ul=li.parentNode;
+        if(button.textContent==="X"){
+            //li.remove(); it also work.. both are same..
+            //ul.removeChild(li);
+            console.log(li.id);
+            let id=li.id;
+            axios.delete(`https://crudcrud.com/api/d952f862439846c3b9eb05426af3b4c2/appointmentData/${id}`)
+                .then(response=>{
+                    console.log(response);
+                })
+                .catch(err=>console.log(err));
+            ul.removeChild(li)
+            
+        }
+
+    }
+})
