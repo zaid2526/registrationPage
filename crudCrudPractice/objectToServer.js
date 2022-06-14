@@ -44,11 +44,13 @@ window.addEventListener('DOMContentLoaded',()=>{
 
 function showOnScreen(user){
     var userList=document.getElementById('users');
-
+    if(axios.get(`https://crudcrud.com/api/d952f862439846c3b9eb05426af3b4c2/appointmentData/${user._id}`).then()){
+        console.log("remove from screen")
+        removeFromScreen(user._id);
+    }
     let li=document.createElement('li');
     li.className='list-group-item';
     li.id=`${user._id}`
-
     li.appendChild(document.createTextNode(`${user.name} ${user.email} ${user.phone}`));
     let dltBtn=document.createElement('button');
     dltBtn.className='btn btn-danger float-right btn-sm  dlt';
@@ -62,7 +64,15 @@ function showOnScreen(user){
 
     userList.appendChild(li);
 }
-
+//..... userDtails remove from Screen .........
+function removeFromScreen(userId){
+    let ul=document.getElementById('users');
+    let nodeToBeDelted=document.getElementById(userId);
+    console.log(nodeToBeDelted);
+    if(nodeToBeDelted){
+        ul.removeChild(nodeToBeDelted);
+    }
+}
 //------- delete Request------ 
 
 var userList=document.getElementById('users');
@@ -84,6 +94,17 @@ userList.addEventListener('click',(event)=>{
                 .catch(err=>console.log(err));
             ul.removeChild(li)
             
+        } else if (button.textContent === 'edit') {
+            console.log('edited......');
+            console.log(li);
+            let user = li.textContent.split(" ");
+            document.getElementById('name').value = user[0];
+            document.getElementById('email').value = user[1];
+            document.getElementById('phone').value = user[2];
+            if (axios.get(`https://crudcrud.com/api/d952f862439846c3b9eb05426af3b4c2/appointmentData/${id}`).then()) {
+                console.log("remove from screen of edit")
+                removeFromScreen(id);
+            }
         }
 
     }
