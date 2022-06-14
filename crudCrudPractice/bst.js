@@ -44,7 +44,7 @@ class BinarySearchTree {
     inorder(node) {
         if (node !== null) {
             this.inorder(node.left);
-            console.log(node.data);
+            console.log("InOrder traversal", node.data);
             this.inorder(node.right);
         }
     }
@@ -59,6 +59,51 @@ class BinarySearchTree {
         else
             return node;
     }
+
+    //preOrder traversal of the tree
+    preOrder(node) {
+        if (node !== null) {
+            console.log("preorder traversal", node.data);
+            this.preOrder(node.left);
+            this.preOrder(node.right);
+        }
+    }
+    preorderIterative(node) {
+        // Base Case
+        var res=[];
+        if (node == null) {
+            return;
+        }
+        // Create an empty stack and push root to it
+        var nodeStack = [];
+        nodeStack.push(root);
+
+        /* Pop all items one by one. Do following
+        for every popped item
+        a) print it
+        b) push its right child
+        c) push its left child
+        Note that right child is pushed first so
+        that left is processed first */
+        while (nodeStack.length > 0) {
+
+            // Pop the top item from stack and print it
+            var mynode = nodeStack[nodeStack.length - 1];
+            console.log("preOrder Iterative",mynode.data);
+            res.push(mynode.data)
+            nodeStack.pop();
+
+            // Push right and left children of
+            // the popped node to stack
+            if (mynode.right != null) {
+                nodeStack.push(mynode.right);
+            }
+            if (mynode.left != null) {
+                nodeStack.push(mynode.left);
+            }
+        }
+        return res;
+    };
 }
 
 // create an object for the BinarySearchTree
@@ -75,7 +120,11 @@ BST.insert(13);
 BST.insert(5);
 BST.insert(9);
 BST.insert(27);
-var root=BST.getRootNode();
+var root = BST.getRootNode();
 BST.inorder(root);
-console.log(BST.search(root,17));
-console.log(BST.search(root,18));
+console.log(BST.search(root, 17));
+console.log(BST.search(root, 18));
+
+BST.preOrder(root);
+BST.preorderIterative(root)
+// console.log("iterative",BST.preorderIterative(root));
