@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="bookingApp.css"> -->
+</head>
+<body>
+    <header>
+        <h1>Js for beginner</h1>
+    </header>
+    <section id="section">
+        <h1>Js for beginner</h1>
+        <form id="my-form" onsubmit="return false">
+            <p id="msg"></p>
+            <label for="fname" class="label" >Name</label>
+            <input type="text" id="name" name="name" placeholder="Your name.." >
+            <label for="email"  class="label" >Email</label>
+            <input type="text" id="email" name="email" placeholder="Your email address.." >
+            <label for="phone"  class="label" >Phone</label>
+            <input type="text" id="phone" name="phone" placeholder="Your phone number.." >          
+            <input id='btn' type="button" value="Submit" >
+            <!-- <button id="refbtn" class="btn btn-info " >Refresh Page</button> -->
+        </form>
+        <p id="demo"></p>
+        <ul id="users" class="item-group">
+        </ul>
+
+        <!--<ul id="item-list">
+            <li class="items"></li>
+            <li class="items"></li>
+            <li class="items"></li>
+        </ul>
+        -->
+    </section>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"></script>
+    <!-- <script src="bookingApp.js"></script> -->
+    <!-- <script src="objectLocalStore.js"></script> -->
+    <!-- <script src="multipleRegistrationLocal.js"></script> -->
+    <script src="objectToServer.js"></script>
+</body>
+</html>
