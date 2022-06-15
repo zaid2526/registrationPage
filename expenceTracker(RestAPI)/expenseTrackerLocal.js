@@ -92,7 +92,6 @@ function deleteEdit(e){
         }
     }
 }
-
 function removeFromScreen(key){
     //let ul=document.getElementById('users');
     let nodeToBeDelted=document.getElementById(key);

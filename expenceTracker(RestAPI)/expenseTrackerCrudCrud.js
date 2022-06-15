@@ -27,7 +27,6 @@ function addExpense(e){
     document.getElementById('expense').value='';
     document.getElementById('description').value='';
     // document.getElementById('category').value='';
-    
 }
 function showOnScreen(expense){
     if(axios.get(`https://crudcrud.com/api/d952f862439846c3b9eb05426af3b4c2/expnsesDetails/${user._id}`).then()){
